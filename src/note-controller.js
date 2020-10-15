@@ -65,6 +65,15 @@ class noteController {
   // getNote(note) {
   //   document.getElementById('app').innerHTML = note
   // }
+
+  submitEvents() {
+    let form = document.getElementById('text')
+    form.addEventListener('submit', (e) => {
+    e.preventDefault(); 
+    console.log('event triggered')
+    }) 
+  }
+
 }
 
 var listModel = new noteListModel
@@ -74,6 +83,7 @@ listModel.addNote("This is another note")
 listModel.addNote("This is another really long note and I should not be able to see the end of it")
 controller.insertHtml();
 controller.urlChange();
+controller.submitEvents();
 
 
 
