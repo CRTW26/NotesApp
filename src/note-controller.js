@@ -4,6 +4,7 @@ class noteController {
     this.noteview = new noteListView(this.listmodel)
   }
 
+  // putting HTML on page 
   getHtml() {
     return this.noteview.output();
   }
@@ -13,6 +14,51 @@ class noteController {
     console.log(noteHtml)
     noteHtml.innerHTML = this.getHtml();
   }
+
+// can see full notes
+  controller = this 
+  showText() {
+    console.log(controller.listmodel.notes[1].text)
+    console.log(location)
+    console.log(location.hash.split('#'))
+    console.log(controller.listmodel.notes)
+    console.log(controller.listmodel.notes[2])
+    let text = controller.listmodel.notes[location.hash.split('#')[1]].text;
+    document.getElementById('app').innerHTML = text; 
+  }
+
+  urlChange(){
+    window.addEventListener("hashchange", this.showText);
+  }
+   
+//submitting a new note
+  submitEvents() {
+    let form = document.getElementById('text')
+    form.addEventListener('submit', (e) => {
+    e.preventDefault(); 
+    console.log(e.target.elements[0].value);
+    this.addNote(e.target.elements[0].value);
+    this.insertHtml();
+    console.log('event triggered')
+    }) 
+  }
+
+  addNote(eventResult) {
+    let note = eventResult
+    this.listmodel.addNote(note);
+    console.log(this.listmodel)
+  }
+}
+
+var listModel = new noteListModel
+var controller = new noteController(listModel)
+listModel.addNote("This is a note")
+listModel.addNote("This is another note")
+listModel.addNote("This is another really long note and I should not be able to see the end of it")
+controller.submitEvents();
+controller.insertHtml();
+controller.urlChange();
+
 
 //   displayChange() {
   
@@ -42,22 +88,12 @@ class noteController {
 //     div.insertHtml = singlenoteview.htmlify();
 //   }
 // }
-    controller = this 
-  showText() {
-    console.log(controller.listmodel.notes[1].text)
-    let text = controller.listmodel.notes[location.hash.split('#')[1]].text;
-    document.getElementById('app').innerHTML = text; 
-  }
 
-  urlChange(){
-    window.addEventListener("hashchange", this.showText);
-  }
-   
   // makeURLChange() {
   //   window.addEventListener("hashchange", this.showText);
   // }
   // showText() {
-  //   this.getNote(getNoteFromURL(window.location))
+  //   this.getNote(this.getNoteFromURL(window.location))
   // }
   // getNoteFromURL(location) {
   //   return location.hash.split('#')[1];
@@ -65,25 +101,3 @@ class noteController {
   // getNote(note) {
   //   document.getElementById('app').innerHTML = note
   // }
-
-  submitEvents() {
-    let form = document.getElementById('text')
-    form.addEventListener('submit', (e) => {
-    e.preventDefault(); 
-    console.log('event triggered')
-    }) 
-  }
-
-}
-
-var listModel = new noteListModel
-var controller = new noteController(listModel)
-listModel.addNote("This is a note")
-listModel.addNote("This is another note")
-listModel.addNote("This is another really long note and I should not be able to see the end of it")
-controller.insertHtml();
-controller.urlChange();
-controller.submitEvents();
-
-
-

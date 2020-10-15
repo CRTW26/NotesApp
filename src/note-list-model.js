@@ -2,7 +2,7 @@ class noteListModel {
 
   constructor() {
     this.notes = []
-    this.id = 1
+    this.id = 0
   }
 
   addNote(note) {
