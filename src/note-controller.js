@@ -57,7 +57,7 @@ class noteController {
   //   window.addEventListener("hashchange", this.showText);
   // }
   // showText() {
-  //   getNote(getNoteFromURL(window.location))
+  //   this.getNote(getNoteFromURL(window.location))
   // }
   // getNoteFromURL(location) {
   //   return location.hash.split('#')[1];
